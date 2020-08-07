@@ -1,0 +1,208 @@
+<meta name="viewport" content="width=400">
+<script type="text/javascript" src="jquery.js"></script>
+<audio id="myAudio">
+
+  <source src="2.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
+<script>
+var x = document.getElementById("myAudio"); 
+
+function playAudio() { 
+    x.play(); 
+
+} 
+
+function pauseAudio() { 
+    x.pause(); 
+} 
+</script>
+
+<body bgcolor="ffffff" style="cursor: none;" onclick="playAudio()" style="margin-top:0;margin-left:0;padding-top:0;padding-left:0;">
+
+<div style="background-color:c0c0c0;position:absolute;z-index:999;" id="lewa"></div>
+<div style="background-color:c0c0c0;position:absolute;z-index:999;" id="prawa"></div>
+<div style="background-color:c0c0c0;position:absolute;z-index:999;" id="dol"></div>
+<img src="pop.gif" width="80" style="position:absolute;" id="pop" >
+
+<img src="tlo.png" width="400" style="position:absolute;z-index:-1;" id="tlo" >
+<img src="drzewo.png" width="120" style="position:absolute;z-index:2;" id="drzewo" >
+<img src="krzak.png" width="120" style="position:absolute;z-index:2;" id="krzak" >
+<div id="punkty" style="position:absolute;z-index:99999;">aaa</div>
+
+<audio id="myAudio">
+
+  <source src="2.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
+
+<img src="shotgun.png" id="shot" style="position:absolute;z-index:996;">
+<img src="cel.png" id="cel" style="position:absolute;width:50px;z-index:1996;">
+
+
+<script>
+var ilosc=1;
+var popwidth;
+var popheight;
+var popleft;
+var poptop;
+var ix;
+var iy;
+var losowo=1;
+	var ruch=0;
+	var wysokosc=0;
+	var punkty=0;
+
+
+var lewy=$( window ).width()/2-200;
+	$("#lewa").css("margin-left","0");
+		$("#lewa").css("margin-top","0");
+			$("#lewa").css("height",$( document ).height());
+			$("#lewa").css("width",lewy);
+			
+			
+			
+			
+			var prawy=$( window ).width()/2+200;
+	$("#prawa").css("margin-left",prawy);
+		$("#prawa").css("margin-top","0");
+			$("#prawa").css("height",$( document ).height());
+			$("#prawa").css("width",$( document ).width());
+			
+			
+			
+	$("#dol").css("margin-left","0");
+		$("#dol").css("margin-top","600");
+			$("#dol").css("height",$( window ).height());
+			$("#dol").css("width",$( window ).width());
+			
+			
+			
+			
+			$("#drzewo").css("margin-left",lewy+250);
+			
+			$("#drzewo").css("margin-top",190);
+			
+			$("#krzak").css("margin-left",lewy+40);
+			
+			$("#krzak").css("margin-top",280);
+			
+			$("#tlo").css("margin-left",lewy);
+			
+			$("#tlo").css("margin-top",0);
+			$("#punkty").css("margin-top",610);
+			$("#punkty").css("margin-left",lewy);
+			
+			
+			$( document ).ready(function() {
+$(document).mousemove(function(event){
+
+var x = $( window ).width()/2;
+var left=x-200;
+var right=x+200;
+if(event.pageX>left && event.pageX<right){
+    $("#shot").css("margin-left", event.pageX);
+	}
+	$("#shot").css("margin-top", 400);
+	
+
+	$("#cel").css("margin-left", event.pageX-25);
+	
+	$("#cel").css("margin-top", event.pageY-25);
+	
+	
+
+
+	
+  
+  
+});
+	
+		$( "body" ).click(function() {
+		
+  $(document).mousemove(function(event){
+  ix=event.pageX;
+  iy=event.pageY;
+  });
+  
+  
+  popleft=parseInt($("#pop").css("margin-left").replace('px',''));
+  poptop=parseInt($("#pop").css("margin-top").replace('px','')) ;
+  popwidth = parseInt($("#pop").width())+popleft;
+  popheight=parseInt($("#pop").height())+poptop;
+// alert(event.pageX);
+ 
+ if(parseInt(ix)>popleft && parseInt(ix) < popwidth  && parseInt(iy)>poptop && parseInt(iy)< popheight) {
+ //alert('trafiony');
+ if(losowo==1){
+ $("#pop").attr("src","kill2.gif");
+ }
+ if(losowo==2){
+ $("#pop").attr("src","kill3.gif");
+ }
+ 
+ ilosc=2;
+ punkty=punkty+1;
+ }
+ 
+	console.log(popleft+"-left "+poptop+"-top "+popwidth+"-width "+popheight+"-height | "+event.pageX+"-x "+event.pageY+"-y ");
+	
+	
+	 
+	
+	
+	
+    });
+	});
+	
+	function pop(){
+	//losowo=2;
+	if(losowo==1){
+	ruch=ruch-1;
+	
+	$("#pop").css("margin-left",prawy+100+ruch);
+	//$("#pop").attr("src","pop.gif");
+	}
+	
+if(losowo==2){
+	ruch=ruch+1;
+	//
+	$("#pop").css("margin-left",lewy-100+ruch);
+	//$("#pop").attr("src","pop2.gif");
+	}	
+
+	$("#pop").css("margin-top",300-wysokosc);
+	//$("#pop2").css("margin-top",300-wysokosc);
+			
+			
+	if(ruch>600){
+	
+	ruch=0;
+	losowo=Math.floor(Math.random() * 2) + 1;
+		wysokosc=Math.floor(Math.random() * 150) + 1;
+		if(losowo==1){
+		$("#pop").attr("src","pop.gif");
+		}else{
+		$("#pop").attr("src","pop2.gif");
+		}
+	}
+	
+	if(ruch<-600){
+	//$("#pop").attr("src","pop.gif");
+	ruch=0;
+	losowo=Math.floor(Math.random() * 2) + 1;
+		wysokosc=Math.floor(Math.random() * 150) + 1;
+		
+		if(losowo==1){
+		$("#pop").attr("src","pop.gif");
+		}else{
+		$("#pop").attr("src","pop2.gif");
+		}
+	}
+	$("#punkty").html("punkty: "+punkty);
+	}
+	setInterval("pop()","10");
+	
+	
+	//alert($("#pop").css("margin-top") );
+</script>
